@@ -1,0 +1,19 @@
+---
+name: terraform validate
+on: push
+
+jobs:
+  validate:
+    name: terraform validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v2
+
+      - name: terraform validate
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          terraform init
+          terraform validate
