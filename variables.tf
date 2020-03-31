@@ -83,5 +83,7 @@ variable "bootstrap_bucket" {
 
 variable "tags" {
   description = "A map of tags to add to all resources."
-  default     = {}
+  default = {
+    Name = "Firewall"
+  }
 }
