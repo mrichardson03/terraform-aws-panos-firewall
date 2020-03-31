@@ -1,11 +1,17 @@
 ---
 name: terraform validate
-on: push
+on:
+  push:
+  schedule:
+    - cron: '0 0 1 * *'
 
 jobs:
   validate:
     name: terraform validate
     runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:latest
+      options: --entrypoint /bin/sh
 
     steps:
       - name: Check out source

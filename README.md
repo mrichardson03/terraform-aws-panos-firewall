@@ -89,7 +89,7 @@ module "firewall" {
 
 ## Changelog
 
-**v0.9.0** - Initial private release.
+**v1.0.0** - Initial release.
 
 ## Support Policy
 
