@@ -62,8 +62,8 @@ variable "eth2_sg_id" {
 # Optional variables
 
 variable "ami" {
-  description = "Firewall AMI in specified region.  Default is 9.0.3.xfr BYOL in us-east-1."
-  default     = "ami-0ec2529b60a7fff22"
+  description = "Specific firewall AMI to deploy.  If not specified, AMI will be looked up."
+  default     = ""
 }
 
 variable "instance_type" {
@@ -85,5 +85,27 @@ variable "tags" {
   description = "A map of tags to add to all resources."
   default = {
     Name = "Firewall"
+  }
+}
+
+variable "panos_version" {
+  type        = string
+  description = "PAN-OS version to deploy (if AMI is not specified)."
+  default     = "9.1"
+}
+
+variable "panos_license_type" {
+  type        = string
+  description = "PAN-OS license type.  Can be one of 'byol', 'bundle1', 'bundle2'."
+  default     = "byol"
+}
+
+variable "license_type_map" {
+  type = map(string)
+
+  default = {
+    "byol"    = "6njl1pau431dv1qxipg63mvah"
+    "bundle1" = "6kxdw3bbmdeda3o6i1ggqt4km"
+    "bundle2" = "806j2of0qy5osgjjixq9gqc6g"
   }
 }

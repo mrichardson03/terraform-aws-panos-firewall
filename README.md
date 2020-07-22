@@ -63,15 +63,22 @@ module "firewall" {
 
 ### Optional Inputs
 
-`ami`: Firewall AMI in specified region.  Default is 9.0.3.xfr BYOL in us-east-1.
+`ami`: Firewall AMI to deploy.  If not specified, AMI will be looked up based on the variables `panos_version` and
+`panos_license_type`.
 
-`instance_type`: Instance type for firewall.
+`instance_type`: Instance type for firewall.  Default is m4.xlarge.
 
 `iam_instance_profile`: IAM Instance Profile used to bootstrap firewall.
 
 `bootstrap_bucket`: S3 bucket containing bootstrap configuration.
 
 `tags`: A map of tags to add to all resources.
+
+`panos_version`: PAN-OS version to deploy when looking up the AMI.  This can be a PAN-OS release (e.g. `9.1`) which
+will look up the most recent AMI for that release, or can be a specific version if an AMI exists for it
+(e.g. `9.1.0-h3`).
+
+`panos_license_type`: PAN-OS license type (can be one of `byol`, `bundle1`, `bundle2`).  Default is `byol`.
 
 ### Outputs
 
@@ -89,6 +96,8 @@ module "firewall" {
 
 ## Changelog
 
+**v1.1.0** - Support AMI lookup based on PAN-OS version and license type.
+**v1.0.1** - Add default value for tags variable.
 **v1.0.0** - Initial release.
 
 ## Support Policy

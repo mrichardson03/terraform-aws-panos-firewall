@@ -14,9 +14,28 @@
 # limitations under the License.
 ############################################################################################
 
+data "aws_ami" "panos" {
+  most_recent = true
+  owners      = ["aws-marketplace"]
+
+  filter {
+    name   = "owner-alias"
+    values = ["aws-marketplace"]
+  }
+
+  filter {
+    name   = "product-code"
+    values = [var.license_type_map[var.panos_license_type]]
+  }
+
+  filter {
+    name   = "name"
+    values = ["PA-VM-AWS*${var.panos_version}*"]
+  }
+}
 
 resource "aws_instance" "firewall" {
-  ami           = var.ami
+  ami           = (var.ami != "") ? var.ami : data.aws_ami.panos.image_id
   instance_type = var.instance_type
   key_name      = var.key_name
 
