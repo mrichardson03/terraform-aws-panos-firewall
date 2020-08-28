@@ -11,7 +11,8 @@ data "aws_availability_zones" "available" {
 }
 
 module "vpc" {
-  source = "mrichardson03/vpc/aws"
+  source  = "mrichardson03/vpc/aws"
+  version = "~> 0.1"
 
   cidr_block = "10.0.0.0/16"
   azs = [
