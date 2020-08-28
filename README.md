@@ -98,10 +98,3 @@ will look up the most recent AMI for that release, or can be a specific version 
 
 `eth2_interface_id`: Interface ID of created firewall ethernet1/2 interface.
 
-## Changelog
-
-**v1.1.0** - Support AMI lookup based on PAN-OS version and license type.
-
-**v1.0.1** - Add default value for tags variable.
-
-**v1.0.0** - Initial release.
