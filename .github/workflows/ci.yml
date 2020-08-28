@@ -1,0 +1,62 @@
+---
+name: CI/CD
+on:
+  push:
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: terraform validate
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+        run: |
+          terraform init
+          terraform validate
+          terraform fmt
+
+  release:
+    name: Release
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: [validate]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache npm modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-global-install
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install semantic-release
+        run: |
+          npm install -g \
+          semantic-release@^17.0.4 \
+          @semantic-release/exec@^5.0.0 \
+          @semantic-release/git@^9.0.0 \
+          @semantic-release/changelog@^5.0.1 \
+          conventional-changelog-conventionalcommits@^4.2.3
+
+      - name: Create release and publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
