@@ -1,6 +1,6 @@
 # terraform-aws-panos-firewall
 
-[![terraform validate](https://github.com/mrichardson03/terraform-aws-panos-firewall/workflows/terraform%20validate/badge.svg)](https://github.com/mrichardson03/terraform-aws-panos-firewall/actions?query=workflow%3A%22terraform+validate%22)
+![CI/CD](https://github.com/mrichardson03/terraform-aws-panos-firewall/workflows/CI/CD/badge.svg?branch=develop)
 
 Terraform Module: PAN-OS firewall connecting two AWS subnets.
 
@@ -11,11 +11,11 @@ reference architecture.
 
 ## Usage
 
-Include in a Terraform plan (see [mrichardson03/terraform-aws-panos-bootstrap](https://github.com/mrichardson03/terraform-aws-panos-bootstrap) for easy bootstrapping):
+Include in a Terraform plan (see [PaloAltoNetworks/terraform-aws-panos-bootstrap](https://github.com/PaloAltoNetworks/terraform-aws-panos-bootstrap) for easy bootstrapping):
 
 ```terraform
 module "firewall" {
-  source  = "github.com/mrichardson03/terraform-aws-panos-firewall?ref=v1.0.0"
+  source  = "github.com/mrichardson03/terraform-aws-panos-firewall"
 
   vpc_id   = module.vpc.vpc_id
   key_name = var.key_name
@@ -97,22 +97,7 @@ will look up the most recent AMI for that release, or can be a specific version 
 ## Changelog
 
 **v1.1.0** - Support AMI lookup based on PAN-OS version and license type.
+
 **v1.0.1** - Add default value for tags variable.
+
 **v1.0.0** - Initial release.
-
-## Support Policy
-
-The code and templates in the repo are released under an as-is, best effort,
-support policy. These scripts should be seen as community supported and
-Palo Alto Networks will contribute our expertise as and when possible.
-We do not provide technical support or help in using or troubleshooting the
-components of the project through our normal support options such as
-Palo Alto Networks support teams, or ASC (Authorized Support Centers)
-partners and backline support options. The underlying product used
-(the VM-Series firewall) by the scripts or templates are still supported,
-but the support is only for the product functionality and not for help in
-deploying or using the template or script itself. Unless explicitly tagged,
-all projects or work posted in our GitHub repository
-(at https://github.com/PaloAltoNetworks) or sites other than our official
-Downloads page on https://support.paloaltonetworks.com are provided under
-the best effort policy.
