@@ -15,7 +15,7 @@ Include in a Terraform plan (see [PaloAltoNetworks/terraform-aws-panos-bootstrap
 
 ```terraform
 module "firewall" {
-  source  = "github.com/mrichardson03/terraform-aws-panos-firewall"
+  source  = "mrichardson03/panos-firewall/aws"
 
   vpc_id   = module.vpc.vpc_id
   key_name = var.key_name
