@@ -11,7 +11,7 @@ data "aws_availability_zones" "available" {
 }
 
 module "vpc" {
-  source = "github.com/mrichardson03/terraform-aws-vpc?ref=v0.0.3"
+  source = "mrichardson03/vpc/aws"
 
   cidr_block = "10.0.0.0/16"
   azs = [
