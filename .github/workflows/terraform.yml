@@ -1,5 +1,5 @@
 ---
-name: terraform validate
+name: CI/CD
 on:
   push:
   schedule:
