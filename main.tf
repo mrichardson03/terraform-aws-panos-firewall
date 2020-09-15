@@ -14,6 +14,11 @@
 # limitations under the License.
 ############################################################################################
 
+# Pick the right license type map based on the PAN-OS version.
+locals {
+  license_type_map = (contains(["8.1", "9.0"], var.panos_version)) ? var.license_type_map_old : var.license_type_map
+}
+
 data "aws_ami" "panos" {
   most_recent = true
   owners      = ["aws-marketplace"]
@@ -25,7 +30,7 @@ data "aws_ami" "panos" {
 
   filter {
     name   = "product-code"
-    values = [var.license_type_map[var.panos_license_type]]
+    values = [local.license_type_map[var.panos_license_type]]
   }
 
   filter {
