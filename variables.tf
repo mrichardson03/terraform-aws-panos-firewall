@@ -100,12 +100,24 @@ variable "panos_license_type" {
   default     = "byol"
 }
 
-variable "license_type_map" {
+# Product codes for PAN-OS versions before 9.1.
+variable "license_type_map_old" {
   type = map(string)
 
   default = {
     "byol"    = "6njl1pau431dv1qxipg63mvah"
     "bundle1" = "6kxdw3bbmdeda3o6i1ggqt4km"
     "bundle2" = "806j2of0qy5osgjjixq9gqc6g"
+  }
+}
+
+# Product codes for PAN-OS versions 9.1 and later.
+variable "license_type_map" {
+  type = map(string)
+
+  default = {
+    "byol"    = "6njl1pau431dv1qxipg63mvah"
+    "bundle1" = "e9yfvyj3uag5uo5j2hjikv74n"
+    "bundle2" = "hd44w1chf26uv4p52cdynb2o"
   }
 }

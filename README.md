@@ -9,6 +9,10 @@ AWS VPC.  The configuration is based off of the
 [AWS Deployment Guide - Single VPC Model](https://www.paloaltonetworks.com/apps/pan/public/downloadResource?pagePath=/content/pan/en_US/resources/guides/aws-deployment-guide-single-resource)
 reference architecture.
 
+View the
+[changelog](https://github.com/mrichardson03/terraform-aws-panos-firewall/blob/master/CHANGELOG.md)
+for this module.
+
 ## Usage
 
 Include in a Terraform plan (see [PaloAltoNetworks/terraform-aws-panos-bootstrap](https://github.com/PaloAltoNetworks/terraform-aws-panos-bootstrap) for easy bootstrapping):
@@ -94,10 +98,3 @@ will look up the most recent AMI for that release, or can be a specific version 
 
 `eth2_interface_id`: Interface ID of created firewall ethernet1/2 interface.
 
-## Changelog
-
-**v1.1.0** - Support AMI lookup based on PAN-OS version and license type.
-
-**v1.0.1** - Add default value for tags variable.
-
-**v1.0.0** - Initial release.

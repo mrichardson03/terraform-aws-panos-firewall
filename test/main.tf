@@ -3,7 +3,8 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  version = "~> 2.0"
+  region  = var.aws_region
 }
 
 data "aws_availability_zones" "available" {
@@ -11,7 +12,8 @@ data "aws_availability_zones" "available" {
 }
 
 module "vpc" {
-  source = "mrichardson03/vpc/aws"
+  source  = "mrichardson03/vpc/aws"
+  version = "~> 0.1"
 
   cidr_block = "10.0.0.0/16"
   azs = [
@@ -34,6 +36,9 @@ module "firewall" {
 
   vpc_id   = module.vpc.vpc_id
   key_name = var.key_name
+
+  panos_license_type = var.panos_license
+  panos_version      = var.panos_version
 
   mgmt_subnet_id = module.vpc.mgmt_subnet_ids[0]
   mgmt_sg_id     = module.vpc.mgmt_sg_id
