@@ -32,10 +32,13 @@ module "vpc" {
 }
 
 module "firewall" {
-  source = "./.."
+  source   = "./.."
 
   vpc_id   = module.vpc.vpc_id
   key_name = var.key_name
+
+  panos_license_type = var.panos_license
+  panos_version      = var.panos_version
 
   mgmt_subnet_id = module.vpc.mgmt_subnet_ids[0]
   mgmt_sg_id     = module.vpc.mgmt_sg_id
