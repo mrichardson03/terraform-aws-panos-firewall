@@ -105,7 +105,7 @@ variable "license_type_map_old" {
   type = map(string)
 
   default = {
-    "byol" = "6njl1pau431dv1qxipg63mvah"
+    "byol"    = "6njl1pau431dv1qxipg63mvah"
     "bundle1" = "6kxdw3bbmdeda3o6i1ggqt4km"
     "bundle2" = "806j2of0qy5osgjjixq9gqc6g"
   }

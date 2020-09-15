@@ -32,7 +32,7 @@ module "vpc" {
 }
 
 module "firewall" {
-  source   = "./.."
+  source = "./.."
 
   vpc_id   = module.vpc.vpc_id
   key_name = var.key_name
