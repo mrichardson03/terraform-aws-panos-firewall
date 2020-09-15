@@ -20,7 +20,7 @@ func TestTerraform(t *testing.T) {
 	// Pick a random PAN-OS license type and version.
 	rand.Seed(time.Now().UnixNano())
 	licenses := []string{"byol", "bundle1", "bundle2"}
-	versions := []string{"8.1", "9.0", "9.1", "10.0"}
+	versions := []string{"9.1", "10.0"}
 
 	license := licenses[rand.Intn(len(licenses))]
 	version := versions[rand.Intn(len(versions))]
