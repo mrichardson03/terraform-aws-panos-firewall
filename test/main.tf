@@ -36,13 +36,15 @@ module "firewall" {
   panos_license_type = var.panos_license
   panos_version      = var.panos_version
 
-  mgmt_subnet_id = module.vpc.public_subnets[0]
-  mgmt_sg_id     = module.sg_default.this_security_group_id
-  mgmt_ip        = "10.0.0.5"
+  mgmt_subnet_id  = module.vpc.public_subnets[0]
+  mgmt_sg_id      = module.sg_default.this_security_group_id
+  mgmt_ip         = "10.0.0.5"
+  create_mgmt_eip = var.create_mgmt_eip
 
-  eth1_subnet_id = module.vpc.public_subnets[0]
-  eth1_sg_id     = module.sg_public.this_security_group_id
-  eth1_ip        = "10.0.0.10"
+  eth1_subnet_id  = module.vpc.public_subnets[0]
+  eth1_sg_id      = module.sg_public.this_security_group_id
+  eth1_ip         = "10.0.0.10"
+  create_eth1_eip = var.create_eth1_eip
 
   eth2_subnet_id = module.vpc.private_subnets[0]
   eth2_sg_id     = module.sg_internal.this_security_group_id

@@ -81,6 +81,18 @@ variable "bootstrap_bucket" {
   default     = ""
 }
 
+variable "create_mgmt_eip" {
+  description = "Create and assign elastic IP to management interface."
+  type        = bool
+  default     = true
+}
+
+variable "create_eth1_eip" {
+  description = "Create and assign elastic IP to ethernet1/1 interface."
+  type        = bool
+  default     = true
+}
+
 variable "tags" {
   description = "A map of tags to add to all resources."
   default = {

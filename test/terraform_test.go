@@ -21,9 +21,11 @@ func TestTerraform(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
 	licenses := []string{"byol", "bundle1", "bundle2"}
 	versions := []string{"9.1", "10.0"}
+	create_eips := []bool{true, false}
 
 	license := licenses[rand.Intn(len(licenses))]
 	version := versions[rand.Intn(len(versions))]
+	create_eip := create_eips[rand.Intn(len(create_eips))]
 
 	// Create temporary SSH key in that region to test with.
 	keyPairName := fmt.Sprintf("terratest-ssh-%s", random.UniqueId())
@@ -39,6 +41,8 @@ func TestTerraform(t *testing.T) {
 			"key_name":      keyPairName,
 			"panos_license": license,
 			"panos_version": version,
+			"create_mgmt_eip": create_eip,
+			"create_eth1_eip": create_eip,
 		},
 	}
 

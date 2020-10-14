@@ -21,7 +21,7 @@ output "instance_id" {
 }
 
 output "mgmt_public_ip" {
-  value       = aws_eip.mgmt.public_ip
+  value       = concat(aws_eip.mgmt.*.public_ip, [""])[0]
   description = "Public IP address of firewall management interface."
 }
 
@@ -31,7 +31,7 @@ output "mgmt_interface_id" {
 }
 
 output "eth1_public_ip" {
-  value       = aws_eip.eth1.public_ip
+  value       = concat(aws_eip.eth1.*.public_ip, [""])[0]
   description = "Public IP address of firewall ethernet1/1 interface."
 }
 
