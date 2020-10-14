@@ -102,19 +102,27 @@ resource "aws_network_interface" "eth2" {
 }
 
 resource "aws_eip" "mgmt" {
+  count = var.create_mgmt_eip ? 1 : 0
+
   vpc = true
 }
 
 resource "aws_eip_association" "mgmt" {
-  allocation_id        = aws_eip.mgmt.id
+  count = var.create_mgmt_eip ? 1 : 0
+
+  allocation_id        = aws_eip.mgmt[0].id
   network_interface_id = aws_network_interface.mgmt.id
 }
 
 resource "aws_eip" "eth1" {
+  count = var.create_eth1_eip ? 1 : 0
+
   vpc = true
 }
 
 resource "aws_eip_association" "eth1" {
-  allocation_id        = aws_eip.eth1.id
+  count = var.create_eth1_eip ? 1 : 0
+
+  allocation_id        = aws_eip.eth1[0].id
   network_interface_id = aws_network_interface.eth1.id
 }
