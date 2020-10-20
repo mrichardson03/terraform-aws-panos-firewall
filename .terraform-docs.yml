@@ -1,0 +1,10 @@
+---
+formatter: markdown
+header-from: docs/header.md
+
+sections:
+  show-all: true
+
+settings:
+  indent: 4
+  required: false

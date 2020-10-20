@@ -4,14 +4,7 @@
 
 Terraform Module: PAN-OS firewall connecting two AWS subnets.
 
-This Terraform module creates a PAN-OS firewall between a public and a private subnet in an
-AWS VPC.  The configuration is based off of the
-[AWS Deployment Guide - Single VPC Model](https://www.paloaltonetworks.com/apps/pan/public/downloadResource?pagePath=/content/pan/en_US/resources/guides/aws-deployment-guide-single-resource)
-reference architecture.
-
-View the
-[changelog](https://github.com/mrichardson03/terraform-aws-panos-firewall/blob/master/CHANGELOG.md)
-for this module.
+This Terraform module creates a PAN-OS firewall between a public and a private subnet in an AWS VPC.  The configuration is based off of the [AWS Deployment Guide - Single VPC Model](https://www.paloaltonetworks.com/apps/pan/public/downloadResource?pagePath=/content/pan/en_US/resources/guides/aws-deployment-guide-single-resource) reference architecture.
 
 ## Usage
 
@@ -41,60 +34,51 @@ module "firewall" {
 }
 ```
 
-### Required Inputs
+#### Requirements
 
-`vpc_id`: VPC ID to create firewall instance in.
+No requirements.
 
-`key_name`: Key pair name to provision instances with.
+#### Providers
 
-`mgmt_subnet_id`: Subnet ID for firewall management interface.
+| Name | Version |
+|------|---------|
+| aws | n/a |
 
-`mgmt_ip`: Internal IP address for firewall management interface.
+#### Inputs
 
-`mgmt_sg_id`: Security group ID for firewall management interface.
+| Name | Description | Type | Default |
+|------|-------------|------|---------|
+| ami | Specific firewall AMI to deploy.  If not specified, AMI will be looked up. | `string` | `""` |
+| bootstrap\_bucket | S3 bucket containing bootstrap configuration. | `string` | `""` |
+| create\_eth1\_eip | Create and assign elastic IP to ethernet1/1 interface. | `bool` | `true` |
+| create\_mgmt\_eip | Create and assign elastic IP to management interface. | `bool` | `true` |
+| eth1\_ip | Internal IP address for firewall ethernet1/1 interface. | `any` | n/a |
+| eth1\_sg\_id | Security group ID for firewall ethernet1/1 interface. | `any` | n/a |
+| eth1\_subnet\_id | Subnet ID for firewall ethernet1/1 interface. | `any` | n/a |
+| eth2\_ip | Internal IP address for firewall ethernet1/2 interface. | `any` | n/a |
+| eth2\_sg\_id | Security group ID for firewall ethernet1/2 interface. | `any` | n/a |
+| eth2\_subnet\_id | Subnet ID for firewall ethernet1/2 interface. | `any` | n/a |
+| iam\_instance\_profile | IAM Instance Profile used to bootstrap firewall. | `string` | `""` |
+| instance\_type | Instance type for firewall. | `string` | `"m4.xlarge"` |
+| key\_name | Key pair name to provision instances with. | `any` | n/a |
+| license\_type\_map | Product codes for PAN-OS versions 9.1 and later. | `map(string)` | <pre>{<br>  "bundle1": "e9yfvyj3uag5uo5j2hjikv74n",<br>  "bundle2": "hd44w1chf26uv4p52cdynb2o",<br>  "byol": "6njl1pau431dv1qxipg63mvah"<br>}</pre> |
+| license\_type\_map\_old | Product codes for PAN-OS versions before 9.1. | `map(string)` | <pre>{<br>  "bundle1": "6kxdw3bbmdeda3o6i1ggqt4km",<br>  "bundle2": "806j2of0qy5osgjjixq9gqc6g",<br>  "byol": "6njl1pau431dv1qxipg63mvah"<br>}</pre> |
+| mgmt\_ip | Internal IP address for firewall management interface. | `any` | n/a |
+| mgmt\_sg\_id | Security group ID for firewall management interface. | `any` | n/a |
+| mgmt\_subnet\_id | Subnet ID for firewall management interface. | `any` | n/a |
+| panos\_license\_type | PAN-OS license type.  Can be one of 'byol', 'bundle1', 'bundle2'. | `string` | `"byol"` |
+| panos\_version | PAN-OS version to deploy (if AMI is not specified). | `string` | `"9.1"` |
+| tags | A map of tags to add to all resources. | `map` | <pre>{<br>  "Name": "Firewall"<br>}</pre> |
+| vpc\_id | VPC to create firewall instance in. | `any` | n/a |
 
-`eth1_subnet_id`: Subnet ID for firewall ethernet1/1 interface.
+#### Outputs
 
-`eth1_ip`: Internal IP address for firewall ethernet1/1 interface.
-
-`eth1_sg_id`: Security group ID for firewall ethernet1/1 interface.
-
-`eth2_subnet_id`: Subnet ID for firewall ethernet1/2 interface.
-
-`eth2_ip`: Internal IP address for firewall ethernet1/2 interface.
-
-`eth2_sg_id`: Security group ID for firewall ethernet1/2 interface.
-
-### Optional Inputs
-
-`ami`: Firewall AMI to deploy.  If not specified, AMI will be looked up based on the variables `panos_version` and
-`panos_license_type`.
-
-`instance_type`: Instance type for firewall.  Default is m4.xlarge.
-
-`iam_instance_profile`: IAM Instance Profile used to bootstrap firewall.
-
-`bootstrap_bucket`: S3 bucket containing bootstrap configuration.
-
-`tags`: A map of tags to add to all resources.
-
-`panos_version`: PAN-OS version to deploy when looking up the AMI.  This can be a PAN-OS release (e.g. `9.1`) which
-will look up the most recent AMI for that release, or can be a specific version if an AMI exists for it
-(e.g. `9.1.0-h3`).
-
-`panos_license_type`: PAN-OS license type (can be one of `byol`, `bundle1`, `bundle2`).  Default is `byol`.
-
-### Outputs
-
-`instance_id`: Instance ID of created firewall.
-
-`mgmt_public_ip`: Public IP address of firewall management interface.
-
-`mgmt_interface_id`: Interface ID of created firewall management interface.
-
-`eth1_public_ip`: Public IP address of firewall ethernet1/1 interface.
-
-`eth1_interface_id`: Interface ID of created firewall ethernet1/1 interface.
-
-`eth2_interface_id`: Interface ID of created firewall ethernet1/2 interface.
+| Name | Description |
+|------|-------------|
+| eth1\_interface\_id | Interface ID of created firewall ethernet1/1 interface. |
+| eth1\_public\_ip | Public IP address of firewall ethernet1/1 interface. |
+| eth2\_interface\_id | Interface ID of created firewall ethernet1/2 interface. |
+| instance\_id | Instance ID of created firewall. |
+| mgmt\_interface\_id | Interface ID of created firewall management interface. |
+| mgmt\_public\_ip | Public IP address of firewall management interface. |
 

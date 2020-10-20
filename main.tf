@@ -14,6 +14,11 @@
 # limitations under the License.
 ############################################################################################
 
+/**
+ * # terraform-aws-panos-firewall
+ * 
+ * This is the readme content, right in the source code.
+ */
 # Pick the right license type map based on the PAN-OS version.
 locals {
   license_type_map = (contains(["8.1", "9.0"], var.panos_version)) ? var.license_type_map_old : var.license_type_map
