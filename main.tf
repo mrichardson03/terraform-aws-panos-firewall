@@ -75,7 +75,7 @@ resource "aws_instance" "firewall" {
   }
 
   iam_instance_profile = var.iam_instance_profile
-  user_data            = base64encode(join("", list("vmseries-bootstrap-aws-s3bucket=", var.bootstrap_bucket)))
+  user_data            = base64encode(join("", tolist(["vmseries-bootstrap-aws-s3bucket=", var.bootstrap_bucket])))
 
   tags = merge(var.tags)
 }
